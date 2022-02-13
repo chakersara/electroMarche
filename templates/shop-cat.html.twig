@@ -1,0 +1,6 @@
+{% extends 'shop-grid.html.twig' %}
+
+{% block ligrid %}
+    {{ parent() }}
+    <li ><a href="/products/{{ cName }}"><i class="ti-arrow-right"></i>{{ cName|replace({"-":" "}) }}</a></li>
+{% endblock %}

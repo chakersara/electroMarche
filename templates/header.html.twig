@@ -1,0 +1,161 @@
+<div class="topbar">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12 col-12">
+                <!-- Top Left -->
+                <div class="top-left">
+                    <ul class="list-main">
+                        <li><i class="ti-headphone-alt"></i> +216 00 000 000</li>
+                        <li><i class="ti-email"></i>support@electromarche.tn</li>
+                    </ul>
+                </div>
+
+                <!--/ End Top Left -->
+            </div>
+            <div class="col-lg-8 col-md-12 col-12">
+                <!-- Top Right -->
+                <div class="right-content">
+
+                    <ul class="list-main">
+                        <li><i class="ti-location-pin"></i> Store location</li>
+                        {% if not app.user %}
+                            <li><i class="ti-power-off"></i><a href="/login">Log in</a></li>
+                        {% else %}
+                            <li><i class="ti-user"></i> <a href="#">My account</a></li>
+                            <li><i class="fas fa-sign-out-alt"></i><a href="/logout">Log out</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <!-- End Top Right -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Topbar -->
+<div class="middle-inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-12">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="/"><img src="{{ asset('images/logo.png') }}" alt="logo"></a>
+                </div>
+                <!--/ End Logo -->
+                <!-- Search Form -->
+                <div class="search-top">
+                    <div class="top-search"><a href="#0"><i class="ti-search"></i></a></div>
+                    <!-- Search Form -->
+                    <div class="search-top">
+                        <form class="search-form">
+                            <input type="text" placeholder="Search here..." name="search">
+                            <button value="search" type="submit"><i class="ti-search"></i></button>
+                        </form>
+                    </div>
+                    <!--/ End Search Form -->
+                </div>
+                <!--/ End Search Form -->
+                <div class="mobile-nav"></div>
+            </div>
+            <div class="col-lg-8 col-md-7 col-12">
+                <div class="search-bar-top">
+                    <form action="/search" method="get">
+
+                    <div class="search-bar " >
+
+                        <select style=" white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" name="cat"  >
+                                <option selected="selected" value="allcat"  >All Category</option>
+                            <div style="height: 200px">
+                                {% for cat in searchCat %}
+                                    <option value="{{ cat.categories }}">{{ cat.categories}}</option>
+                                {% endfor %}
+                            </div>
+                        </select>
+
+                            <input name="search" placeholder="Search Products Here....." type="search">
+                            <button class="btnn" type="submit"><i class="ti-search"></i></button>
+                    </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-12">
+                <div class="right-bar">
+                    <!-- Search Form -->
+                    <div class="sinlge-bar shopping">
+                        <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i>
+                            <span class="total-count" style="background-color: lightpink">{{ fav|length }}</span>
+                        </a>
+                        <div class="shopping-item">
+                            <div class="dropdown-cart-header">
+                                <span>{{ fav|length}} Items</span>
+                            </div>
+                            {% if fav|length>0 %}
+                                <ul class="shopping-list">
+                                    {% for indx,prod in fav %}
+                                        <li>
+                                            <a href="/fav/remove/{{ prod.idProds }}" class="remove " title="Remove this item"><i class="fa fa-remove"></i></a>
+                                            <a class="cart-img" href="#"><img src="{{ prod.imageURLs }}" alt="#"></a>
+                                            <h4><a href="/p/{{ prod.idProds }}">{{ prod.name }}</a></h4>
+                                        </li>
+
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <li>No items</li>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <div class="sinlge-bar">
+                        <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                    </div>
+                    <div class="sinlge-bar shopping">
+                        <a href="/cart" class="single-icon"><i class="ti-bag"></i> <span class="total-count">
+                                        {%if cart|length==0%}0
+                                        {% else %} {{ nbItems }}
+                                        {% endif %}
+
+                                    </span></a>
+                        <!-- Shopping Item -->
+                        <div class="shopping-item">
+                            <div class="dropdown-cart-header">
+                                <span>{{ nbItems}} Items</span>
+                                <a href="/cart">View Cart</a>
+                            </div>
+                            {% if nbItems>0 %}
+                                <ul class="shopping-list">
+                                    {% for prod in cart %}
+                                        <li>
+                                            <a href="/p_cart/remove/{{ prod.product.id }}" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
+                                            <a class="cart-img" href="#"><img src="{{ prod.product.imageURLs }}" alt="#"></a>
+                                            <h4><a href="#">{{ prod.product.name }}</a></h4>
+                                            <p class="" style="font-size: 12px;">{{ prod.product.merchant }}</p>
+                                            <p class="quantity  font-weight-bold">{{ prod.quantity }}x - <span class="amount  text-success">${{ prod.product.amountMin*prod.quantity }}</span></p>
+                                        </li>
+
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <li>No items</li>
+                            {% endif %}
+
+                            <div class="bottom">
+                                <div class="total">
+                                    <span>Total</span>
+                                    {% if cart|length>1 %}
+                                        <span class="total-amount">${{ totalPrice }}</span>
+                                    {% else %}
+                                        <span class="total-amount">$0</span>
+                                    {% endif %}
+
+                                </div>
+                                <a href="/cart/checkout" class="btn animate">Checkout</a>
+                            </div>
+                        </div>
+                        <!--/ End Shopping Item -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

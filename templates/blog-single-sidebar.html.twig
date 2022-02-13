@@ -1,0 +1,143 @@
+{% extends "shop-grid.html.twig" %}
+
+{% block content %}
+		<section class="blog-single section ">
+			<div class="container" >
+				<div class="row ">
+					<div class="col-lg-2 col-12"></div>
+					<div class="col-lg-4 col-12">
+						<div class="blog-single-main">
+							<div class="row">
+								<div class="col-12">
+									<div class="image rounded">
+										<img src="{{ prod|first.imageURLs }}" alt="#">
+									</div>
+									<div class="blog-detail">
+										<h2 class="blog-title">{{ prod|first.name }}</h2>
+										<div class="blog-meta ">
+											<span class="author float-right">
+												<a href="#" ><i class="fas fa-weight-hanging"></i>{{ prod|first.weight }}</a>
+
+											</span>
+										</div>
+
+									</div>
+									<div class="share-social">
+										<div class="row">
+											<div class="col-12">
+												<div class="content-tags">
+													<h4>Tags:</h4>
+													<ul class="tag-inner">
+														<li><a href="#">{{ prod|first.primaryCategories }}</a></li>
+														<li><a href="#">{{ prod|first.categories }}</a></li>
+
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-12">
+						<div class="main-sidebar">
+
+							<div class="single-widget recent-post">
+								<h3 class="title " style="margin-bottom: 4px">Merchants</h3>
+								<!-- Single Post -->
+								{% set break=false %}
+
+								{% for merch in prod %}
+									{% if (merch.availability|upper !="NON" or merch.availability|upper =="FALSE" or merch.availability|upper =="OUT OF STOCK" or merch.availability|upper!="RETIRED") and not break %}
+										<ul class="comment" style="margin-bottom: 3px">
+											<li class="text-right " style="color: #f5b223">
+												<i class="fas fa-star"></i>Best offer
+											</li>
+
+										</ul>
+										{% set break=true %}
+									{% endif %}
+									<div class="single-post  ">
+
+										<div class="image  align-middle " >
+											<img class="d-block img-fluid" src="{{ merch.imageMerchant }}" alt="#">
+										</div>
+
+										<div class="content">
+
+											<h5><a href="#">{{ merch.merchant }}</a></h5>
+											<ul class="comment">
+												<li class=" text-dark" ></i><i class="fas fa-dollar-sign"></i>{{ merch.amountMin }}</li>
+
+													<li
+															{% if merch.availability|upper =="NON" or merch.availability|upper =="FALSE" or merch.availability|upper =="OUT OF STOCK" or merch.availability|upper=="RETIRED" %}
+																style="color:#B0413E"
+
+															{% else %}
+
+																style="color: #1c7430"
+
+															{% endif %}
+
+													>
+														<i class="fas fa-clipboard-check"></i>{{ merch.availability }}</li>
+												<li class="text-right" style="color: #868e96;font-size: 12px;">{{ merch.conditionp }}</li>
+
+											</ul>
+											<ul class="mt-2">
+												<li>
+													<a href="/cart/add/{{ merch.id }}" class="btn btn-outline-light " style="text-align: start;padding: 10px">
+														<i class="fas fa-shopping-basket"></i>
+														Add to panel
+													</a>
+												</li>
+
+											</ul>
+										</div>
+									</div>
+								{% endfor %}
+								<!-- End Single Post -->
+								<!-- Single Post -->
+
+							</div>
+
+
+							<!--/ End Single Widget -->
+							<!-- Single Widget -->
+							<div class="single-widget newsletter">
+								<h3 class="title">Suggestions</h3>
+								<div class="single-post  ">
+										<ul class="shopping-list">
+											{% for prod in sug %}
+												<div class="single-post ">
+
+													<div class="row">
+														<div class="col-5">
+															<img src="{{ prod.imageURLs }}" alt="">
+														</div>
+														<div class="col-7">
+															<div class="sugBox">
+																<h3 ><a href="/p/{{ prod.idProds }}">{{ prod.name }}</a></h3>
+															</div>
+															<div class="product-price text-success">
+																<span>${{ prod.min }}-{{ prod.max }}</span>
+															</div>
+														</div>
+													</div>
+												</div>
+
+											{% endfor %}
+										</ul>
+								</div>
+
+
+							</div>
+							<!--/ End Single Widget -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+{% endblock %}

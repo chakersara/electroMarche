@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Title Tag  -->
+	<title>ElectroMarché.</title>
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset("security/vendor/bootstrap/css/bootstrap.min.css") }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset("security/fonts/font-awesome-4.7.0/css/font-awesome.min.css") }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset("security/fonts/Linearicons-Free-v1.0.0/icon-font.min.css") }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset("security/vendor/animate/animate.css") }}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{{ asset("security/vendor/css-hamburgers/hamburgers.min.css") }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset("security/vendor/animsition/css/animsition.min.css") }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset("security/vendor/select2/select2.min.css") }}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{{ asset("security/vendor/daterangepicker/daterangepicker.css") }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset("security/css/util.css") }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset("security/css/main.css") }}">
+<!--===============================================================================================-->
+	<style>
+		.wrap-input100 ul li{
+			font-size: 12px;
+			color: #B0413E;
+		}
+	</style>
+</head>
+<body>
+{% block  form %}
+
+<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title" style="background-image: url({{ asset("security/images/bg-01.jpg") }});">
+					<span class="login100-form-title-1">
+						{% block name %}
+							Register
+						{% endblock %}
+					</span>
+				</div>
+				{{ form_start(form) }}
+					{{ form_row(form.user_name,{"label":"Username","attr":{"placeholder":"Enter username"}})}}
+				{{ form_row(form.email,{"attr":{"placeholder":"Enter email"}})}}
+				{{ form_row(form.password,{"attr":{"placeholder":"Enter password"}})}}
+				{{ form_row(form.confirm_password,{"attr":{"placeholder":"Re-Enter email"}})}}
+					<span class="flex-sb-m w-full p-b-30">
+
+						<div class="txt1  ">
+							<a href="/login" class="txt1 ">
+								Already have an account?<b class="text-success"> Log in</b>
+							</a>
+						</div>
+					</span>
+				<div  class="container-login100-form-btn">
+					<button type="submit" class="login100-form-btn">
+						Sign in
+					</button>
+				</div>
+
+				{{ form_end(form) }}
+
+				<script defer>
+					var form=document.querySelector("form")
+					form.setAttribute("class","login100-form validate-form")
+
+					var inputs=form.querySelectorAll("div")
+					inputs.forEach(element=>{
+						var butt=element.querySelector("button")
+						var a=element.querySelector("a")
+						if (butt==null && a==null){
+						element.classList.add("wrap-input100","validate-input","m-b-26")
+						element.querySelector('input').classList.add("input100")
+						element.querySelector('label').classList.add("label-input100","text-left")}
+					})
+				</script>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+<!--===============================================================================================-->
+	<script src="{{ asset("security/vendor/jquery/jquery-3.2.1.min.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ asset("security/vendor/animsition/js/animsition.min.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ asset("security/vendor/bootstrap/js/popper.js") }}"></script>
+	<script src="{{ asset("security/vendor/bootstrap/js/bootstrap.min.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ asset("security/vendor/select2/select2.min.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ asset("security/vendor/daterangepicker/moment.min.js") }}"></script>
+	<script src="{{ asset("security/vendor/daterangepicker/daterangepicker.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ asset("security/vendor/countdowntime/countdowntime.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ asset("security/js/main.js") }}"></script>
+
+</body>
+</html>
